@@ -60,15 +60,25 @@ while (gameLoop) {
     outcome = playRockPaperScissors(playerHand, compHand)
     if (outcome === 'win'){
         playerScore += 1
-    }else if (outcome === 'lose')
+    }else if (outcome === 'lose'){
+        computerScore += 1
+    }
+
+
     console.log(compareHand(outcome, playerHand, compHand))
 
+}
+if (playerScore > computerScore){
+    console.log(`Your score is ${playerScore} and computer has a score of ${computerScore}, You win the competition`)
+}else if (playerScore < computerScore){
+    console.log(`Your score is ${playerScore} and computer has a score of ${computerScore}, You lose the competition`)
+}else{
+    console.log(`Your score is ${playerScore} and computer has a score of ${computerScore}, What a fierce competition!`)
 }
 
 // if the user wins tell them
 
 // if the computer wins tell them
-playRockPaperScissors()
 
 // if (playerHand === compHand) {
 //     console.log(`You both have ${compHand}, It\'s a Tie!`)
