@@ -44,8 +44,8 @@ let computerScore = 0
 let totalRounds = 5
 // Manipulate the buttons to decide what the player picks
 document.addEventListener("DOMContentLoaded", function(){
-    const buttonContainerElement = document.getElementById("buttonContainerElement");
-    const outcomeTextElement = document.getElementById("roundOutcome")
+    const buttonContainerElement = document.getElementById("buttonContainer");
+    const outcomeTextElement = document.getElementById("outcome")
     const playerScoreElement = document.getElementById("playerScore")
     const computerScoreElement = document.getElementById("computerScore")
 
