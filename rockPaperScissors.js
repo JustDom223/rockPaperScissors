@@ -1,99 +1,109 @@
-const options = ["rock", "paper", 'scissors'];
-
-// get computers hand from rock papers or scissor
+const possibleChoices = ["rock", "paper", 'scissors'];
 
 
-function getComputerChoice(options) {
-    return options[Math.floor(Math.random() * options.length)]
+
+// Pick a random choice for computer
+function getRandomChoice(possibleChoices) {
+    return possibleChoices[Math.floor(Math.random() * possibleChoices.length)]
 }
-function playRockPaperScissors(playerHand, compHand) {
 
+// compare hands
+function determineGameOutcome(playerChoice, computerChoice) {
 
-    // compare hands
-
-    if (playerHand === compHand) {
+    if (playerChoice === computerChoice) {
         return `tie`
-    } else if (playerHand === 'rock' && compHand === 'paper'){
+    } else if (playerChoice === 'rock' && computerChoice === 'paper'){
         return `lose`
-    } else if (playerHand === 'paper' && compHand === 'scissors'){
+    } else if (playerChoice === 'paper' && computerChoice === 'scissors'){
         return `lose`
-    } else if (playerHand === 'scissors' && compHand === 'rock'){
+    } else if (playerChoice === 'scissors' && computerChoice === 'rock'){
         return `lose`
-    } else if (playerHand === 'rock' && compHand === 'scissors'){
+    } else if (playerChoice === 'rock' && computerChoice === 'scissors'){
         return`win`
-    } else if (playerHand === 'paper' && compHand === 'rock'){
+    } else if (playerChoice === 'paper' && computerChoice === 'rock'){
         return `win`
-    } else if (playerHand === 'scissors' && compHand === 'paper'){
+    } else if (playerChoice === 'scissors' && computerChoice === 'paper'){
         return `win`
     };
 }
 
-
-// return the outcome depending on the outcome
-function compareHand(result, playerHand, compHand){
+// return the appropriate roundOutcome
+function compareHand(result, playerChoice, computerChoice){
     if (result === 'lose'){
-        return `Your hand is ${playerHand} and the computer\'s hand is ${compHand}... You Lose!`
+        return `Your hand is ${playerChoice} and the computer\'s hand is ${computerChoice}... You Lose!`
     }else if(result === 'win'){
-        return `Your hand is ${playerHand} and the computer\'s hand is ${compHand}... You Win!`
+        return `Your hand is ${playerChoice} and the computer\'s hand is ${computerChoice}... You Win!`
     }else{
-        return `Your hand is ${playerHand} and the computer\'s hand is ${compHand}... Its a Tie`
+        return `Your hand is ${playerChoice} and the computer\'s hand is ${computerChoice}... Its a Tie`
     };
 }
-
-
 
 // the gameplay loop
 let playerScore = 0
 let computerScore = 0
-let bestOfFive = 5
-let gameLoop = true
+let totalRounds = 5
+// Manipulate the buttons to decide what the player picks
+document.addEventListener("DOMContentLoaded", function(){
+    const buttonContainerElement = document.getElementById("buttonContainerElement");
+    const outcomeTextElement = document.getElementById("roundOutcome")
+    const playerScoreElement = document.getElementById("playerScore")
+    const computerScoreElement = document.getElementById("computerScore")
 
-while (gameLoop) {
-    if (bestOfFive < 1){
-        gameLoop = false;
-        break
-    };
-    bestOfFive -= 1
-    const compHand = getComputerChoice(options);
-    const playerHand = prompt('Rock, Paper or Scissors?: ').toLowerCase();
+    buttonContainerElement.addEventListener("click", function(event){
+        if (event.target.tagName === 'BUTTON') {
+            let playerChoice = '';
+            let computerChoice = getRandomChoice(possibleChoices);
+            let roundOutcome = ''
+            let roundResult = ''
 
-    outcome = playRockPaperScissors(playerHand, compHand)
-    if (outcome === 'win'){
-        playerScore += 1
-    }else if (outcome === 'lose'){
-        computerScore += 1
-    }
+            switch(event.target.id) {
+                case "rockButton": 
+                playerChoice = 'rock'
+                roundOutcome = determineGameOutcome(playerChoice, computerChoice)
+                roundResult = compareHand(roundOutcome, playerChoice, computerChoice)
+                outcomeTextElement.textContent = roundResult
+                if (roundOutcome === "win"){
+                    playerScore++;
+                    playerScoreElement.textContent = playerScore
+                }else if (roundOutcome === "lose"){
+                    computerScore++;
+                    computerScoreElement.textContent = computerScore
+                };
+                break
+                
+                
+                case "paperButton": 
+                playerChoice = 'paper'
+                roundOutcome = determineGameOutcome(playerChoice, computerChoice)
+                roundResult = compareHand(roundOutcome, playerChoice, computerChoice)
+                outcomeTextElement.textContent = roundResult
+                if (roundOutcome === "win"){
+                    playerScore++;
+                    playerScoreElement.textContent = playerScore
+                }else if (roundOutcome === "lose"){
+                    computerScore ++;
+                    computerScoreElement.textContent = computerScore
+                }
+                break
+                
+                
+                case "scissorsButton": 
+                playerChoice = 'scissors'
+                roundOutcome = determineGameOutcome(playerChoice, computerChoice)
+                roundResult = compareHand(roundOutcome, playerChoice, computerChoice)
+                outcomeTextElement.textContent = roundResult
+                if (roundOutcome === "win"){
+                    playerScore++;
+                    playerScoreElement.textContent = playerScore
+                }else if (roundOutcome === "lose"){
+                    computerScore ++;
+                    computerScoreElement.textContent = computerScore
+                }
+                break
+                
+                
+            }
+        }
+})
 
-
-    console.log(compareHand(outcome, playerHand, compHand))
-
-}
-if (playerScore > computerScore){
-    console.log(`Your score is ${playerScore} and computer has a score of ${computerScore}, You win the competition`)
-}else if (playerScore < computerScore){
-    console.log(`Your score is ${playerScore} and computer has a score of ${computerScore}, You lose the competition`)
-}else{
-    console.log(`Your score is ${playerScore} and computer has a score of ${computerScore}, What a fierce competition!`)
-}
-
-// if the user wins tell them
-
-// if the computer wins tell them
-
-// if (playerHand === compHand) {
-//     console.log(`You both have ${compHand}, It\'s a Tie!`)
-// } else if (playerHand === 'rock' && compHand === 'paper'){
-//     console.log(`You have rock and the computer has paper, You lose!`)
-// } else if (playerHand === 'paper' && compHand === 'scissors'){
-//     console.log(`You have paper and the computer has scissors, You lose!`)
-// } else if (playerHand === 'scissors' && compHand === 'rock'){
-//     console.log(`You have scissors and the computer has rock, You lose!`)
-// } else if (playerHand === 'rock' && compHand === 'scissors'){
-//     console.log(`You have rock and the computer has scissors, You win!`)
-// } else if (playerHand === 'paper' && compHand === 'rock'){
-//     console.log(`You have paper and the computer has rock, You win!`)
-// } else if (playerHand === 'scissors' && compHand === 'paper'){
-//     console.log(`You have scissors and the computer has paper, win!`)
-// } else if (playerHand === 'rock' && compHand === 'paper'){
-//     console.log(`You have rock and the computer has paper, You lose!`)
-// };
+})
